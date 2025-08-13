@@ -30,7 +30,7 @@ extend type Mutation {
     createLevel(input: CreateLevelInput! @spread): Level @create(model: "App\\Models\\Level\\Level")
 
     updateLevel(id: ID! @eq(key: "id"),
-     input: UpdateLevelInput! @spread): Level
+    input: UpdateLevelInput! @spread): Level
     @update(model: "App\\Models\\Level\\Level")
 
     deleteLevel(id: ID! @eq(key: "id")): Level
