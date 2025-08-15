@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bagian', function (Blueprint $table) {
             $table->id();
             $table->string('nama',100);
-            $$table->timestamps();
+            $table->timestamps();
         });
     }
 
