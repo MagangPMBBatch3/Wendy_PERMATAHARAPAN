@@ -33,6 +33,6 @@
 
     {{-- Script --}}
     <script src="{{ asset('js/bagian/bagian.js') }}"></script>
-    <script src="{{ asset('js/bagian/bagian-create.js') }}"></script>
-    <script src="{{ asset('js/bagian/bagian-edit.js') }}"></script>
+    <script src="{{ asset('js/bagian/bagian.create.js') }}"></script>
+    <script src="{{ asset('js/bagian/bagian.edit.js') }}"></script>
 </x-layouts.main>

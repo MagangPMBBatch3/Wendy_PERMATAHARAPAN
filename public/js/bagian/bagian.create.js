@@ -14,25 +14,49 @@ async function createBagian() {
         return;
     }
 
+    // Use JSON.stringify to properly escape the input
+    const variables = { input: { nama: nama } };
+    
     const query = `
-        mutation {
-            createBagian(input: { nama: "${nama}" }) {
+        mutation CreateBagian($input: CreateBagianInput!) {
+            createBagian(input: $input) {
                 id
                 nama
             }
         }
     `;
 
-    await fetch("/graphql", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ query })
-    });
+    try {
+        const response = await fetch("/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ query, variables })
+        });
 
-    closeAddModal();
-    loadData();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        if (result.errors) {
+            console.error("GraphQL errors:", result.errors);
+            alert("Error: " + (result.errors[0]?.message || "Unknown error"));
+            return;
+        }
+
+        alert("Data berhasil ditambahkan!");
+        closeAddModal();
+        if (typeof loadData === 'function') {
+            loadData(); // Refresh the table
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan: " + error.message);
+    }
 }
 
 // Add form submission handler
