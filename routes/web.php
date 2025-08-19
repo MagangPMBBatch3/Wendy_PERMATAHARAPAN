@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\BagianController\BagianController;
 use App\Http\Controllers\LevelController\LevelController;
 
+// Redirect root to login
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
