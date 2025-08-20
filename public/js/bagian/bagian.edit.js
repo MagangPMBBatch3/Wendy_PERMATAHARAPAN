@@ -1,6 +1,6 @@
 function openEditModal(id, nama) {
-    document.getElementById('editId').value = id;
-    document.getElementById('editNama').value = nama;
+    document.getElementById('editBagianId').value = id;
+    document.getElementById('namaBagian').value = nama;
     document.getElementById('modalEdit').classList.remove('hidden');
 }
 
@@ -9,8 +9,8 @@ function closeEditModal() {
 }
 
 async function updateBagian() {
-    const id = document.getElementById('editId').value;
-    const newNama = document.getElementById('editNama').value;
+    const id = document.getElementById('editBagianId').value;
+    const newNama = document.getElementById('namaBagian').value;
     if (!newNama) return alert("Nama tidak boleh kosong");
 
     const mutation = `
