@@ -6,7 +6,7 @@ async function loadData(queryType = "all") {
         if (!isNaN(searchValue)) {
             query = {
                 query: `
-                    query GetBagian($id: ID!) {
+                    query Bagian($id: ID!) {
                         bagian(id: $id) {
                             id
                             nama
@@ -18,7 +18,7 @@ async function loadData(queryType = "all") {
         } else {
             query = {
                 query: `
-                    query GetBagianByNama($nama: String!) {
+                    query BagianByNama($nama: String!) {
                         bagianByNama(nama: $nama) {
                             id
                             nama
@@ -31,7 +31,7 @@ async function loadData(queryType = "all") {
     } else {
         query = {
             query: `
-                query GetAllBagian {
+                query AllBagian {
                     allBagian {
                         id
                         nama

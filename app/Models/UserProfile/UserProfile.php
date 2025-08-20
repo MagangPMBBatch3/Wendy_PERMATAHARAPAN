@@ -29,7 +29,7 @@ class UserProfile extends Model
     //Relasi
     public function user()
     {
-        return $this->belongsTo(\App\Models\User\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function bagian()

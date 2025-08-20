@@ -2,7 +2,7 @@ type Proyek {
   id: ID!
   kode: String
   nama: String
-  tanggal: Date
+  tanggal: DateTime
   nama_sekolah: String
   created_at: DateTime
   updated_at: DateTime
@@ -12,14 +12,14 @@ type Proyek {
 input CreateProyekInput {
   kode: String!
   nama: String!
-  tanggal: Date!
+  tanggal: DateTime!
   nama_sekolah: String!
 }
 
 input UpdateProyekInput {
   kode: String
   nama: String
-  tanggal: Date
+  tanggal: DateTime
   nama_sekolah: String
 }
 

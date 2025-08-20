@@ -5,12 +5,13 @@ type UserProfile {
   nrp: String
   alamat: String
   foto: String
-  bagian_id: Int
-  level_id: Int
-  status_id: Int
+  bagian_id: ID!
+  level_id: ID!
+  status_id: ID!
   created_at: DateTime
   updated_at: DateTime
   deleted_at: DateTime
+
   user: User @belongsTo
   bagian: Bagian @belongsTo
   level: Level @belongsTo
@@ -23,9 +24,19 @@ input CreateUserProfileInput {
   nrp: String
   alamat: String
   foto: String
-  bagian_id: Int
-  level_id: Int
-  status_id: Int
+  bagian_id: ID!
+  level_id: ID!
+  status_id: ID!
+}
+
+input UpdateUserProfileInput {
+  nama_lengkap: String
+  nrp: String
+  alamat: String
+  foto: String
+  bagian_id: ID
+  level_id: ID
+  status_id: ID
 }
 
 type Query {
@@ -47,8 +58,8 @@ type Mutation {
     @delete(model: "App\\Models\\UserProfile\\UserProfile")
 
   restoreUserProfile(id: ID!): UserProfile
-    @field(resolver: "App\\GraphQL\\UserProfile\\Mutations\\UserProfileMutation@restore")
+    @field(resolver: "App\\GraphQL\\UserProfile\\UserProfileMutation@restore")
 
   forceDeleteUserProfile(id: ID!): UserProfile
-    @field(resolver: "App\\GraphQL\\UserProfile\\Mutations\\UserProfileMutation@forceDelete")
+    @field(resolver: "App\\GraphQL\\UserProfile\\UserProfileMutation@forceDelete")
 }

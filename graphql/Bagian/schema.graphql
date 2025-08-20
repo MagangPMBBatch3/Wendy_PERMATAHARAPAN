@@ -12,7 +12,7 @@ input CreateBagianInput {
 input UpdateBagianInput {
     id: ID!
     nama: String
-}
+}   
 
 extend type Query {
     #semua data
