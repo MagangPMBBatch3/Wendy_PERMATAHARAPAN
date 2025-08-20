@@ -12,27 +12,32 @@ input CreateBagianInput {
 input UpdateBagianInput {
     id: ID!
     nama: String
-}   
+}
 
 extend type Query {
-    #semua data
+    # semua data
     allBagian: [Bagian!]!
     @all(model: "App\\Models\\Bagian\\Bagians")
-    #cari berdasarkan ID
+
+    # cari berdasarkan id
     bagian(id: ID! @eq(key: "id")): Bagian
     @find(model: "App\\Models\\Bagian\\Bagians")
-    #cari berdasarkan nama (LIKE)
+
+    # cari berdasarkan nama (like)
     bagianByNama(nama: String! @where(operator: "like", key: "nama")): [Bagian!]!
     @all(model: "App\\Models\\Bagian\\Bagians")
 }
 
 type Mutation {
+    # tambah data
     createBagian(input: CreateBagianInput! @spread): Bagian
     @create(model: "App\\Models\\Bagian\\Bagians")
 
+    # ubah data
     updateBagian(input: UpdateBagianInput! @spread): Bagian
     @update(model: "App\\Models\\Bagian\\Bagians")
 
+    # hapus data
     deleteBagian(id: ID! @eq(key: "id")): Bagian
     @delete(model: "App\\Models\\Bagian\\Bagians")
 }
