@@ -37,31 +37,36 @@ async function loadLevelData() {
 
 function renderLevelTable(levels, tableId, isActive) {
     const tbody = document.getElementById(tableId);
-    if (levels.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3">Tidak ada data</td></tr>';
+    tbody.innerHTML = '';
+
+    if (!levels.length) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="3" class="text-center text-gray-500 p-3">Tidak ada data</td>
+            </tr>
+        `;
         return;
     }
 
-    tbody.innerHTML = '';
     levels.forEach(item => {
         let actions = '';
         if (isActive) {
             actions = `
-                <button class="btn btn-sm btn-warning" onclick="editLevel(${item.id})">Edit</button>
-                <button class="btn btn-sm btn-danger" onclick="arsipLevel(${item.id})">Arsipkan</button>
+                <button onclick="openEditLevelModal(${item.id}, '${item.nama}')" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+                <button onclick="archiveLevel(${item.id})" class="bg-red-500 text-white px-2 py-1 rounded">Arsipkan</button>
             `;
         } else {
             actions = `
-                <button class="btn btn-sm btn-success" onclick="restoreLevel(${item.id})">Restore</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteLevel(${item.id})">Hapus Permanen</button>
+                <button onclick="restoreLevel(${item.id})" class="bg-green-500 text-white px-2 py-1 rounded">Restore</button>
+                <button onclick="forceDeleteLevel(${item.id})" class="bg-red-700 text-white px-2 py-1 rounded">Hapus Permanen</button>
             `;
         }
 
         tbody.innerHTML += `
             <tr>
-                <td>${item.id}</td>
-                <td>${item.nama}</td>
-                <td>${actions}</td>
+                <td class="border p-2">${item.id}</td>
+                <td class="border p-2">${item.nama}</td>
+                <td class="border p-2">${actions}</td>
             </tr>
         `;
     });

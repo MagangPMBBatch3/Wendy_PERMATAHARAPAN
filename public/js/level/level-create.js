@@ -1,8 +1,8 @@
 function openAddLevelModal() {
-    document.getElemetnById('modalAddLevel')/classList.remove('hidden');
+    document.getElementById('modalAddLevel').classList.remove('hidden');
 }
 
-function closeADdLevelModal() {
+function closeAddLevelModal() {
     document.getElementById('modalAddLevel').classList.add('hidden');
 }
 
