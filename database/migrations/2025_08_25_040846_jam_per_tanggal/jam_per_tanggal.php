@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jam_per_tanggal', function (Blueprint $table) {
     $table->id();
-    $table->unsignedBigInteger('bagian_id'); // Assuming bagian table exists
+    $table->foreignId('bagian_id')->constrained('bagian')->onUpdate('cascade')->onDelete('cascade');
     $table->string('no_wbs', 50);
     $table->foreignId('proyek_id')->constrained('proyek');
     $table->date('tanggal');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('jam_per_tanggal');
     }
 };

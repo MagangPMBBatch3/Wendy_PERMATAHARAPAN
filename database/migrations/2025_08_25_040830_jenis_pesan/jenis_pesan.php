@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('jenis_pesan', function (Blueprint $table) {
+            $table->id(); // id INT(11)
+            $table->string('nama', 50); // nama VARCHAR(50)
+            $table->timestamps(); // created_at & updated_at
+            $table->softDeletes(); // deleted_at
+        });
+
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('jenis_pesan');
     }
 };
