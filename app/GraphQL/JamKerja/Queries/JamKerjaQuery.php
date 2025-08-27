@@ -11,16 +11,20 @@ class JamKerjaQuery
         $query = JamKerja::query();
 
         if (!empty($args['search'])) {
-            return $query->where('id', 'like', '%' . $args['search'] . '%')
-                ->orWhere('nama', 'like', '%' . $args['search'] . '%')
-                ->orWhere('jam_mulai', 'like', '%' . $args['search'] . '%')
-                ->orWhere('jam_selesai', 'like', '%' . $args['search'] . '%');
+            $search = $args['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('user_id', 'like', "%{$search}%")
+                  ->orWhere('tanggal', 'like', "%{$search}%")
+                  ->orWhere('jam_masuk', 'like', "%{$search}%")
+                  ->orWhere('jam_pulang', 'like', "%{$search}%");
+            });
         }
+
         return $query->get();
     }
 
-    public function allArsip($_, array $args)
+    public function allJamKerja()
     {
-        return JamKerja::onlyTrashed()->get();
+        return JamKerja::all();
     }
 }

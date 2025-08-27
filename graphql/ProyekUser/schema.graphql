@@ -1,0 +1,31 @@
+type ProyekUser {
+    id: ID!
+    proyek_id: Int
+    user_id: Int
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input CreateProyekUserInput {
+    proyek_id: Int
+    user_id: Int
+}
+
+input UpdateProyekUserInput {
+    id: ID!
+    proyek_id: Int
+    user_id: Int
+}
+
+type Query {
+    getProyekUser(search: String): [ProyekUser!]! @field(resolver: "App\\GraphQL\\ProyekUser\\Queries\\ProyekUserQuery@getProyekUser")
+    allProyekUser: [ProyekUser!]! @field(resolver: "App\\GraphQL\\ProyekUser\\Queries\\ProyekUserQuery@allProyekUser")
+}
+
+type Mutation {
+    createProyekUser(input: CreateProyekUserInput! @spread): ProyekUser! @field(resolver: "App\\GraphQL\\ProyekUser\\Mutations\\ProyekUserMutation@create")
+    updateProyekUser(input: UpdateProyekUserInput! @spread): ProyekUser! @field(resolver: "App\\GraphQL\\ProyekUser\\Mutations\\ProyekUserMutation@update")
+    restoreProyekUser(id: ID!): ProyekUser! @field(resolver: "App\\GraphQL\\ProyekUser\\Mutations\\ProyekUserMutation@restore")
+    forceDeleteProyekUser(id: ID!): ProyekUser! @field(resolver: "App\\GraphQL\\ProyekUser\\Mutations\\ProyekUserMutation@forceDelete")
+}

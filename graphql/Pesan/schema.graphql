@@ -1,0 +1,37 @@
+type Pesan {
+    id: ID!
+    pengirim: String
+    penerima: String
+    isi: String
+    jenis_pesan_id: Int
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input CreatePesanInput {
+    pengirim: String
+    penerima: String
+    isi: String
+    jenis_pesan_id: Int
+}
+
+input UpdatePesanInput {
+    id: ID!
+    pengirim: String
+    penerima: String
+    isi: String
+    jenis_pesan_id: Int
+}
+
+type Query {
+    getPesan(search: String): [Pesan!]! @field(resolver: "App\\GraphQL\\Pesan\\Queries\\PesanQuery@getPesan")
+    allPesan: [Pesan!]! @field(resolver: "App\\GraphQL\\Pesan\\Queries\\PesanQuery@allPesan")
+}
+
+type Mutation {
+    createPesan(input: CreatePesanInput! @spread): Pesan! @field(resolver: "App\\GraphQL\\Pesan\\Mutations\\PesanMutation@create")
+    updatePesan(input: UpdatePesanInput! @spread): Pesan! @field(resolver: "App\\GraphQL\\Pesan\\Mutations\\PesanMutation@update")
+    restorePesan(id: ID!): Pesan! @field(resolver: "App\\GraphQL\\Pesan\\Mutations\\PesanMutation@restore")
+    forceDeletePesan(id: ID!): Pesan! @field(resolver: "App\\GraphQL\\Pesan\\Mutations\\PesanMutation@forceDelete")
+}

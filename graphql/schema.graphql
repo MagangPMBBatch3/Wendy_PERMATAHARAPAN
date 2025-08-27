@@ -8,5 +8,12 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 #import User/schema.graphql
 #import UserProfile/schema.graphql
 #import Proyek/schema.graphql
+#import ProyekUser/schema.graphql
+#import JenisPesan/schema.graphql
+#import Pesan/schema.graphql
+#import ModeJamKerja/schema.graphql
+#import JamPerTanggal/schema.graphql
+#import JamKerja/schema.graphql
+#import Aktvitias/schema.graphql
 
 

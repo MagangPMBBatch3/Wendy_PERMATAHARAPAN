@@ -1,0 +1,4 @@
+type ModeJamKerja {
+    id: ID!
+    nama: String
+    created极速分析
