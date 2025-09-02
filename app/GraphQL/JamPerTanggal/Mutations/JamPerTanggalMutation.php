@@ -30,4 +30,11 @@ class JamPerTanggalMutation {
         $jamPerTanggal->forceDelete();
         return $jamPerTanggal;
     }
+
+    public function deleteJamPerTanggal($_, array $args)
+    {
+        $jamPerTanggal = JamPerTanggal::findOrFail($args['id']);
+        $jamPerTanggal->delete();
+        return $jamPerTanggal;
+    }
 }

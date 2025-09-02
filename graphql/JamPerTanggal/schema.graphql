@@ -30,11 +30,15 @@ input UpdateJamPerTanggalInput {
 type Query {
     getJamPerTanggal(search: String): [JamPerTanggal!]! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Queries\\JamPerTanggalQuery@getJamPerTanggal")
     allJamPerTanggal: [JamPerTanggal!]! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Queries\\JamPerTanggalQuery@allJamPerTanggal")
+    allJamPerTanggalArsip: [JamPerTanggal!]! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Queries\\JamPerTanggalQuery@allJamPerTanggalArsip")
+    jamPerTanggal(id: ID): JamPerTanggal @field(resolver: "App\\GraphQL\\JamPerTanggal\\Queries\\JamPerTanggalQuery@jamPerTanggal")
+    jamPerTanggalByNoWbs(no_wbs: String!): [JamPerTanggal!]! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Queries\\JamPerTanggalQuery@jamPerTanggalByNoWbs")
 }
 
 type Mutation {
     createJamPerTanggal(input: CreateJamPerTanggalInput! @spread): JamPerTanggal! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Mutations\\JamPerTanggalMutation@create")
     updateJamPerTanggal(input: UpdateJamPerTanggalInput! @spread): JamPerTanggal! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Mutations\\JamPerTanggalMutation@update")
+    deleteJamPerTanggal(id: ID!): JamPerTanggal! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Mutations\\JamPerTanggalMutation@deleteJamPerTanggal")
     restoreJamPerTanggal(id: ID!): JamPerTanggal! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Mutations\\JamPerTanggalMutation@restore")
     forceDeleteJamPerTanggal(id: ID!): JamPerTanggal! @field(resolver: "App\\GraphQL\\JamPerTanggal\\Mutations\\JamPerTanggalMutation@forceDelete")
 }

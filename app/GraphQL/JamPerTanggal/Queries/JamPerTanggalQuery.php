@@ -22,4 +22,19 @@ class JamPerTanggalQuery
     {
         return JamPerTanggal::all();
     }
+
+    public function allJamPerTanggalArsip($_, array $args)
+    {
+        return JamPerTanggal::onlyTrashed()->get();
+    }
+
+    public function jamPerTanggal($_, array $args)
+    {
+        return JamPerTanggal::find($args['id']);
+    }
+
+    public function jamPerTanggalByNoWbs($_, array $args)
+    {
+        return JamPerTanggal::where('no_wbs', 'like', '%' . $args['no_wbs'] . '%')->get();
+    }
 }

@@ -17,9 +17,27 @@
                 </a>
             </li>
             <li class="mb-2">
-                <a href="{{ route('level.index') }}" 
+                <a href="{{ route('level.index') }}"
                    class="block p-2 rounded {{ request()->routeIs('level.*') ? 'bg-blue-800 font-semibold' : 'hover:bg-cyan-400' }}">
                    Level
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ route('aktivitas.index') }}"
+                   class="block p-2 rounded {{ request()->routeIs('aktivitas.*') ? 'bg-blue-800 font-semibold' : 'hover:bg-cyan-400' }}">
+                   Aktivitas
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ route('proyek.index') }}"
+                   class="block p-2 rounded {{ request()->routeIs('proyek.*') ? 'bg-blue-800 font-semibold' : 'hover:bg-cyan-400' }}">
+                   Proyek
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ route('jampertanggal.index') }}"
+                   class="block p-2 rounded {{ request()->routeIs('jampertanggal.*') ? 'bg-blue-800 font-semibold' : 'hover:bg-cyan-400' }}">
+                   Jam Per Tanggal
                 </a>
             </li>
             <li>

@@ -1,0 +1,29 @@
+type StatusJamKerja {
+    id: ID!
+    nama: String!
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input CreateStatusJamKerjaInput {
+    nama: String!
+}
+
+input UpdateStatusJamKerjaInput {
+    id: ID!
+    nama: String!
+}
+
+type Query {
+    getStatusJamKerja(search: String): [StatusJamKerja!]! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Queries\\StatusJamKerjaQuery@getStatusJamKerja")
+    allStatusJamKerja: [StatusJamKerja!]! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Queries\\StatusJamKerjaQuery@allArsip")
+}
+
+type Mutation {
+    createStatusJamKerja(input: CreateStatusJamKerjaInput!): StatusJamKerja! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Mutations\\StatusJamKerjaMutation@create")
+    updateStatusJamKerja(input: UpdateStatusJamKerjaInput!): StatusJamKerja! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Mutations\\StatusJamKerjaMutation@update")
+    deleteStatusJamKerja(id: ID!): StatusJamKerja! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Mutations\\StatusJamKerjaMutation@delete")
+    restoreStatusJamKerja(id: ID!): StatusJamKerja! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Mutations\\StatusJamKerjaMutation@restore")
+    forceDeleteStatusJamKerja(id: ID!): StatusJamKerja! @field(resolver: "App\\GraphQL\\StatusJamKerja\\Mutations\\StatusJamKerjaMutation@forceDelete")
+}

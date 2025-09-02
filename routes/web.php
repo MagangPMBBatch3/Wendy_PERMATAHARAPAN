@@ -5,6 +5,11 @@ use App\Http\Controllers\AuthController\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BagianController\BagianController;
 use App\Http\Controllers\LevelController\LevelController;
+use App\Http\Controllers\AktivitasController\AktivitasController;
+use App\Http\Controllers\ProyekController\ProyekController;
+use App\Http\Controllers\JamKerjaController\JamKerjaController;
+use App\Http\Controllers\JamPerTanggalController\JamPerTanggalController;
+use App\Http\Controllers\StatusJamKerjaController\StatusJamKerjaController;
 
 // Redirect root to login
 Route::get('/', function () {
@@ -22,3 +27,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/bagian', [BagianController::class, 'index'])->name('bagian.index');
 Route::get('/level', [LevelController::class, 'index'])->name('level.index');
+Route::get('/aktivitas', [AktivitasController::class, 'index'])->name('aktivitas.index');
+Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek.index');
+Route::get('/jamkerja', [JamKerjaController::class, 'index'])->name('jamkerja.index');
+Route::get('/jampertanggal', [JamPerTanggalController::class, 'index'])->name('jampertanggal.index');
+Route::get('/statusjamkerja', [StatusJamKerjaController::class, 'index'])->name('statusjamkerja.index');

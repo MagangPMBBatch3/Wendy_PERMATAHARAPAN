@@ -24,6 +24,13 @@ class StatusJamKerjaMutation {
         return $statusJamKerja;
     }
 
+    public function delete($_, array $args)
+    {
+        $statusJamKerja = StatusJamKerja::findOrFail($args['id']);
+        $statusJamKerja->delete();
+        return $statusJamKerja;
+    }
+
     public function forceDelete($_, array $args)
     {
         $statusJamKerja = StatusJamKerja::withTrashed()->findOrFail($args['id']);

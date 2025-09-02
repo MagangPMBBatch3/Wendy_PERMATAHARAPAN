@@ -1,0 +1,57 @@
+type Aktivitas {
+    id: ID!
+    bagian_id: ID
+    no_wbs: String!
+    nama: String!
+    deskripsi: String
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input CreateAktivitasInput {
+    bagian_id: ID
+    no_wbs: String!
+    nama: String!
+    deskripsi: String
+}
+
+input UpdateAktivitasInput {
+    id: ID!
+    bagian_id: ID
+    no_wbs: String
+    nama: String
+    deskripsi: String
+}
+
+extend type Query {
+    # semua aktivitas (yg blm hapus)
+    allAktivitas: [Aktivitas!]!
+    @all(model: "App\\Models\\aktivitas\\aktivitas")
+    # semua aktivitas yang di soft delete
+    allAktivitasArsip: [Aktivitas!]!
+    @field(resolver: "App\\GraphQL\\Aktivitas\\Queries\\AktivitasQuery@allArsip")
+    # cari
+    aktivitas(id: ID! @eq(key:"id")): Aktivitas
+    @find(model: "App\\Models\\aktivitas\\aktivitas")
+    # cari (nama)
+    aktivitasByNama(nama: String! @where(operator: "like", key: "nama")): [Aktivitas!]!
+    @all(model: "App\\Models\\aktivitas\\aktivitas")
+}
+
+extend type Mutation {
+    createAktivitas(input: CreateAktivitasInput! @spread): Aktivitas @create(model: "App\\Models\\aktivitas\\aktivitas")
+
+    updateAktivitas(id: ID! @eq(key: "id"),
+    input: UpdateAktivitasInput! @spread): Aktivitas
+    @update(model: "App\\Models\\aktivitas\\aktivitas")
+
+    deleteAktivitas(id: ID! @eq(key: "id")): Aktivitas
+    @delete(model: "App\\Models\\aktivitas\\aktivitas")
+
+    restoreAktivitas(id:ID! @eq(key: "id")): Aktivitas
+    @field(resolver: "App\\GraphQL\\Aktivitas\\Mutations\\AktivitasMutation@restore")
+
+    forceDeleteAktivitas(id: ID!): Aktivitas
+    @field(resolver: "App\\GraphQL\\Aktivitas\\Mutations\\AktivitasMutation@forceDelete")
+}
