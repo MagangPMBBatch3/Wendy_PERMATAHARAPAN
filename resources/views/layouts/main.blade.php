@@ -11,7 +11,7 @@
         <ul>
             <li><a href="/dashboard" class="block py-2 px-2 rounded {{ request()->is('dashboard') ? 'bg-blue-800 font-semibold' : 'hover:bg-blue-500' }}">Dashboard</a></li>
             <li class="mb-2">
-                <a href="{{ route('bagian.index') }}" 
+                <a href="{{ route('bagian.index') }}"
                    class="block p-2 rounded {{ request()->routeIs('bagian.*') ? 'bg-blue-800 font-semibold' : 'hover:bg-cyan-400' }}">
                    Bagian
                 </a>

@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\DateScalarServiceProvider::class,
+    Nuwave\Lighthouse\LighthouseServiceProvider::class,
 ];

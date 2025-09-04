@@ -47,4 +47,26 @@ class User extends Authenticatable
             'deleted_at' => 'datetime',
         ];
     }
+
+    /**
+     * Get the user's profile.
+     */
+    public function userProfile()
+    {
+        return $this->hasOne(\App\Models\UserProfile\UserProfile::class, 'user_id');
+    }
+
+    /**
+     * Check if the user has access to a given permission.
+     * For now, this is a stub that returns true for all permissions.
+     * You can extend this method to implement real permission checks.
+     *
+     * @param string $permission
+     * @return bool
+     */
+    public function canAccess(string $permission): bool
+    {
+        // TODO: Implement real permission logic here
+        return true;
+    }
 }

@@ -1,19 +1,19 @@
 @extends('components.layouts.main')
 
-@section('title', 'Proyek')
+@section('title', 'JamKerja')
 
 @section('content')
     <div class="bg-slate-800/90 p-4 rounded-xl shadow w-full">
-        <h1 class="text-2xl font-bold mb-4 text-white">Data Proyek</h1>
+        <h1 class="text-2xl font-bold mb-4 text-white">Data Jam Kerja</h1>
 
         {{-- Tombol Tambah & Pencarian --}}
         <div class="flex justify-between mb-4">
             <input
                 type="text"
                 id="search"
-                placeholder="Cari Kode atau Nama..."
+                placeholder="Cari Nama atau Keterangan..."
                 class="bg-slate-700/70 text-gray-200 placeholder-gray-400 border border-slate-600 p-2 rounded-lg w-64 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                oninput="searchProyek()">
+                oninput="searchJamKerja()">
 
             <button onclick="openAddModal()"
                 class="bg-blue-500 text-white px-4 py-2 rounded">
@@ -26,25 +26,25 @@
             <thead class="bg-slate-700 text-gray-300 uppercase text-xs">
                 <tr>
                     <th class="border border-slate-600 p-2 text-center">ID</th>
-                    <th class="border border-slate-600 p-2">Kode</th>
                     <th class="border border-slate-600 p-2">Nama</th>
-                    <th class="border border-slate-600 p-2">Tanggal</th>
-                    <th class="border border-slate-600 p-2">Nama Sekolah</th>
+                    <th class="border border-slate-600 p-2">Jam Mulai</th>
+                    <th class="border border-slate-600 p-2">Jam Selesai</th>
+                    <th class="border border-slate-600 p-2">Keterangan</th>
                     <th class="border border-slate-600 p-2 text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody id="dataProyek" class="divide-y divide-slate-700 text-gray-200"></tbody>
+            <tbody id="dataJamKerja" class="divide-y divide-slate-700 text-gray-200"></tbody>
         </table>
     </div>
 
     {{-- Include Modal Tambah --}}
-    @include('components.proyek.modal-add')
+    @include('components.jamkerja.modal-add')
 
     {{-- Include Modal Edit --}}
-    @include('components.proyek.modal-edit')
+    @include('components.jamkerja.modal-edit')
 
     {{-- Script --}}
-    <script src="{{ asset('js/proyek/proyek.js') }}"></script>
-    <script src="{{ asset('js/proyek/proyek-create.js') }}"></script>
-    <script src="{{ asset('js/proyek/proyek-edit.js') }}"></script>
+    <script src="{{ asset('js/jamkerja/jamkerja.js') }}"></script>
+    <script src="{{ asset('js/jamkerja/jamkerja-create.js') }}"></script>
+    <script src="{{ asset('js/jamkerja/jamkerja-edit.js') }}"></script>
 @endsection

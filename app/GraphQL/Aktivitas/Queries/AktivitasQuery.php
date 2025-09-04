@@ -18,6 +18,11 @@ class AktivitasQuery
         return $query->get();
     }
 
+    public function allAktivitas()
+    {
+        return Aktivitas::all();
+    }
+
     public function allArsip($_, array $args)
     {
         return Aktivitas::onlyTrashed()->get();

@@ -17,6 +17,13 @@ class BagianMutation {
         return $bagian;
     }
 
+    public function delete($_, array $args)
+    {
+        $bagian = Bagians::findOrFail($args['id']);
+        $bagian->delete();
+        return $bagian;
+    }
+
     public function restore($_, array $args)
     {
         $bagian = Bagians::withTrashed()->findOrFail($args['id']);

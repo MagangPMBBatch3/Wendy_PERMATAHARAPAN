@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
 use Exception;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,5 +36,14 @@ class AppServiceProvider extends ServiceProvider
                 exit(1);//keluar status
             }
         }
+
+        // Custom Blade directive for permission checking
+        Blade::directive('canAccess', function ($permission) {
+            return "<?php if(auth()->check() && auth()->user()->canAccess($permission)): ?>";
+        });
+
+        Blade::directive('endcanAccess', function () {
+            return "<?php endif; ?>";
+        });
     }
 }

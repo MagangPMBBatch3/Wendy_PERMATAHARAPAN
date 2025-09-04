@@ -6,6 +6,7 @@
             @csrf
             <div class="mb-4">
                 <label for="addNama" class="block mb-2">Nama Bagian</label>
+                <label for="addNama" class="block mb-2">Nama Bagian</label>
                 <input type="text" id="addNama" name="nama" class="border p-2 rounded w-full" required>
             </div>
             <div class="flex justify-end">

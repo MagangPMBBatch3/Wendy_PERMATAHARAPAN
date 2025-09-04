@@ -13,7 +13,8 @@ class BagianQuery
         if (!empty($args['search'])) {
             return $query->where('id', 'like', '%' . $args['search'] . '%')
                 ->orWhere('nama', 'like', '%' . $args['search'] . '%')
-                ->orWhere('kode', 'like', '%' . $args['search'] . '%');
+                ->orWhere('kode', 'like', '%' . $args['search'] . '%')
+                ->get();
         }
         return $query->get();
     }
