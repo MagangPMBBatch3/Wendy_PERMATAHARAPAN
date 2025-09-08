@@ -21,4 +21,9 @@ class ModeJamKerjaQuery
     {
         return ModeJamKerja::all();
     }
+
+    public function allArsip($_, array $args)
+    {
+        return ModeJamKerja::onlyTrashed()->get();
+    }
 }

@@ -13,6 +13,8 @@ class ModeJamKerja extends Model
     protected $table = 'mode_jam_kerja';
 
     protected $fillable = [
-        'nama'
+        'nama',
+        'jam_masuk',
+        'jam_keluar'
     ];
 }

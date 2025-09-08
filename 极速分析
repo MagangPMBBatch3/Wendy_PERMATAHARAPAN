@@ -1,5 +1,0 @@
-<?php
-
-namespace App\GraphQL\ModeJamKerja\Queries;
-
-use App\Models\ModeJamKer极速分析

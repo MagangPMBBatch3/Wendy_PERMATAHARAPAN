@@ -1,4 +1,54 @@
 type ModeJamKerja {
     id: ID!
+    nama: String!
+    jam_masuk: String!
+    jam_keluar: String!
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input CreateModeJamKerjaInput {
+    nama: String!
+    jam_masuk: String!
+    jam_keluar: String!
+}
+
+input UpdateModeJamKerjaInput {
+    id: ID!
     nama: String
-    created极速分析
+    jam_masuk: String
+    jam_keluar: String
+}
+
+extend type Query {
+    # ambil semua ModeJamKerja (yang belum dihapus)
+    allModeJamKerja: [ModeJamKerja!]!
+    @all(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+    # ambil semua ModeJamKerja yang di soft delete
+    allModeJamKerjaArsip: [ModeJamKerja!]!
+    @field(resolver: "App\\GraphQL\\ModeJamKerja\\Queries\\ModeJamKerjaQuery@allArsip")
+    # cari berdasarkan id
+    modeJamKerja(id: ID! @eq(key:"id")): ModeJamKerja
+    @find(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+    # cari berdasarkan nama
+    modeJamKerjaByNama(nama: String! @where(operator: "like", key: "nama")): [ModeJamKerja!]!
+    @all(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+}
+
+extend type Mutation {
+    createModeJamKerja(input: CreateModeJamKerjaInput! @spread): ModeJamKerja @create(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+
+    updateModeJamKerja(id: ID! @eq(key: "id"),
+    input: UpdateModeJamKerjaInput! @spread): ModeJamKerja
+    @update(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+
+    deleteModeJamKerja(id: ID! @eq(key: "id")): ModeJamKerja
+    @delete(model: "App\\Models\\ModeJamKerja\\ModeJamKerja")
+
+    restoreModeJamKerja(id:ID! @eq(key: "id")): ModeJamKerja
+    @field(resolver: "App\\GraphQL\\ModeJamKerja\\Mutations\\ModeJamKerjaMutation@restore")
+
+    forceDeleteModeJamKerja(id: ID!): ModeJamKerja
+    @field(resolver: "App\\GraphQL\\ModeJamKerja\\Mutations\\ModeJamKerjaMutation@forceDelete")
+}
