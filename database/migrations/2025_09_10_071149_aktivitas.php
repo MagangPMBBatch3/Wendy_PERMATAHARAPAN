@@ -9,11 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+     public function up(): void
     {
-        Schema::create('aktivitas', function (Blueprint $table) {
+         Schema::create('aktivitas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bagian_id')->nullable()->constrained('bagian')->onUpdate('cascade')->nullOnDelete();
+            $table->foreignId('bagian_id')->nullable()->constrained('bagian')->onUpdate('cascade')->onDelete('set null');
             $table->String('no_wbs',50);
             $table->string('nama',50);
             $table->text('deskripsi')->nullable();
