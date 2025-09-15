@@ -14,10 +14,33 @@ input UpdateBagianInput {
     nama: String
 }
 
+type PageInfo {
+    hasMorePages: Boolean!
+    currentPage: Int!
+    lastPage: Int!
+    perPage: Int!
+    total: Int!
+}
+
+type BagianPaginator {
+    data: [Bagian!]!
+    paginatorInfo: PageInfo!
+
+}
+
+
 extend type Query {
     # semua data
     allBagian: [Bagian!]!
     @all(model: "App\\Models\\Bagian\\Bagians")
+
+    #QUert dengan paginasi dan search
+    allBagianPaginate(
+       search: String
+       first: Int
+       page: Int
+    ): BagianPaginator!
+    @field(resolver: "App\\GraphQL\\Queries\\BagianQuery@all")
 
     # cari berdasarkan id
     bagian(id: ID! @eq(key: "id")): Bagian

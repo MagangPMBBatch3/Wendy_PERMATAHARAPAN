@@ -1,93 +1,89 @@
-async function loadData(queryType = "all") {
-    let query;
-    const searchValue = document.getElementById('search').value.trim();
+const variables = { first: parseInt(perPage), page: searchValue };
 
-    if (queryType === "search" && searchValue) {
-        if (!isNaN(searchValue)) {
-            query = `
-            query {
-                bagian(id: ${searchValue}){
-                    id
-                    nama
-                }
-            }
-            `;
-        } else {
-            query = `
-            query {
-                bagianByNama(nama: "%${searchValue}%"){
-                    id
-                    nama
-                }
-            }
-            `;
-        }
-    } else {
-        query = `
-        query {
-            allBagian {
-                id
-                nama
-            }        
-        }
-        `;
-    }
+const res = await fetch(API_URL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ query, variables })
+});
+const data = await res.json();
 
-    const res = await fetch('/graphql', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ query })
-    });
-    const data = await res.json();
+const tbody = document.getElementById("dataBagian");
+tbody.innerHTML = "";
 
-    const tbody = document.getElementById('dataBagian');
-    tbody.innerHTML = '';
+const result = data.data.allBagianPaginate;
+const items = result.data;
+const pageInfo = result.pageInfo;
 
-    let items = [];
-    if (data.data.allBagian) items = data.data.allBagian;
-    if (data.data.bagianByNama) items = data.data.bagianByNama;
-    if (data.data.bagian) items = [data.data.bagian];
-
-    if (items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" class="text-center p-2">Data tidak ditemukan</td></tr>`;
-    }
-
-    items.forEach(item => {
-        if (!item) return;
-        tbody.innerHTML += `
-            <tr class="border-b">
-                <td class="border px-2 py-1 text-center">${item.id}</td>
-                <td class="border px-2 py-1 text-center">${item.nama}</td>
-                <td class="border px-2 py-1 text-center">
-                    <button onclick="openEditModal(${item.id}, '${item.nama}')" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
-                    <button onclick="hapusBagian(${item.id})" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-                </td>
-            </tr>
-        `;
-    });
+if (!items || items.length === 0) {
+    tbody.innerHTML =
+        '<tr><td colspan="3" class="text-center p-2">Data tidak ditemukan</td></tr>';
+    document.getElementById("pageInfo").innerText = "Tidak ada";
+    return;
 }
 
+if (!items || items.length === 0) {
+  tbody.innerHTML = `
+    <tr><td colspan="3" class="text-center p-2">Data tidak ditemukan</td></tr>
+  `;
+  document.getElementById("pageInfo").innerText = "Tidak ada data";
+  return;
+}
+
+// Render baris tabel
+items.forEach((item, index) => {
+  tbody.innerHTML += `
+    <tr>
+      <td class="p-2">${item.id}</td>
+      <td class="p-2">${item.nama}</td>
+      <td class="p-2 text-end">
+        <button class="btn btn-sm btn-warning" onclick="openEditModal('${item.id}', '${item.nama}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="hapusBagian('${item.id}')">Hapus</button>
+      </td>
+    </tr>
+  `;
+});
+
+// Update info halaman
+document.getElementById("pageInfo").innerText = `Halaman ${pageInfo.currentPage} dari ${pageInfo.total}`;
+
+// Update tombol prev/next
+document.getElementById("prevBtn").disabled = !pageInfo.hasPreviousPage;
+document.getElementById("nextBtn").disabled = !pageInfo.hasMorePages;
+
+// Pencarian
 function searchBagian() {
-    loadData("search");
+    loadDataPaginate();
 }
 
+// Pagination tombol
+function prevPage() {
+    if (currentPage > 1) loadDataPaginate(currentPage - 1);
+}
+
+function nextPage() {
+    loadDataPaginate(currentPage + 1);
+}
+
+// Hapus data
 async function hapusBagian(id) {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
+
     const mutation = `
-        mutation {
-            deleteBagian(id: ${id}) {
-                id
-            }
+        mutation($id: ID!) {
+            deleteBagian(id: $id)
         }
     `;
 
-    await fetch("/graphql", {
+    await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: mutation })
+        body: JSON.stringify({ query: mutation, variables: { id } })
     });
 
-    loadData();
+    loadDataPaginate(currentPage);
 }
 
-document.addEventListener("DOMContentLoaded", () => loadData());
+// Load otomatis saat halaman dibuka
+document.addEventListener("DOMContentLoaded", () => {
+    loadDataPaginate();
+});
